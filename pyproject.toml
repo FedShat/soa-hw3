@@ -1,0 +1,42 @@
+[project]
+name = "flight-booking"
+version = "1.0.0"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "alembic>=1.16,<2",
+    "asyncpg>=0.30,<1",
+    "email-validator>=2.2,<3",
+    "fastapi>=0.115,<1",
+    "grpcio>=1.76,<2",
+    "grpcio-tools>=1.76,<2",
+    "pydantic-settings>=2.10,<3",
+    "redis>=6.4,<7",
+    "sqlalchemy[asyncio]>=2.0.43,<2.1",
+    "uvicorn>=0.35,<1",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28,<1",
+    "pytest>=8.4,<10",
+    "pytest-asyncio>=1.2,<2",
+    "ruff>=0.13,<1",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+asyncio_default_test_loop_scope = "function"
+testpaths = ["tests"]
+markers = ["integration: requires the Docker Compose services"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+extend-exclude = ["generated"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
+
+[tool.ruff.lint.per-file-ignores]
+"services/booking/app.py" = ["B008"]
